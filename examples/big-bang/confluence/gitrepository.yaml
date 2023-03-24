@@ -1,12 +1,13 @@
+---
 apiVersion: source.toolkit.fluxcd.io/v1beta2
 kind: GitRepository
 metadata:
   name: confluence
   namespace: confluence
-  labels:
-    app.kubernetes.io/name: "confluence"
-    app.kubernetes.io/component: "third-party"
 spec:
-  interval: 5s
-  url: "https://repo1.dso.mil/big-bang/apps/third-party/confluence.git"
-  ref: "1.10.0-bb.1"
+  interval: 30s
+  ref:
+    tag: 1.10.0-bb.1
+  # Currently the Zarf Agent can only mutate urls that are proper URIs (i.e. scheme://host/repo)
+  url: https://repo1.dso.mil/big-bang/apps/third-party/confluence.git
+
