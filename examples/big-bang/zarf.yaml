@@ -34,3 +34,17 @@ components:
         namespace: zarf
         files:
           - virtualservices/gitea.yaml
+  - name: confluence
+    required: true
+    manifests:
+      - name: confluence
+        namespace: confluence
+        files:
+          - confluence/namespace.yaml
+          - confluence/helmrelease.yaml
+          - confluence/gitrepository.yaml
+    repos:
+      - https://repo1.dso.mil/big-bang/apps/third-party/confluence.git
+    images:
+      - registry1.dso.mil/ironbank/atlassian/confluence-data-center/confluence-node:8.0.3
+

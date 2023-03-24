@@ -1,0 +1,21 @@
+apiVersion: helm.fluxcd.io/v1
+kind: HelmRelease
+metadata:
+  name: confluence
+  namespace: confluence
+  annotations:
+    fluxcd.io/automated: "true"
+  labels:
+    app.kubernetes.io/name: "confluence"
+    app.kubernetes.io/component: "third-party"
+spec:
+  releaseName: confluence
+  targetNamespace: confluence
+  chart:
+    spec:
+      chart: "./chart"
+      interval: 5m
+      sourceRef:
+        kind: GitRepository
+        name: confluence
+        namespace: confluence
