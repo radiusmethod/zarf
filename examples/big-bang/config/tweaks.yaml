@@ -1,0 +1,6 @@
+---
+twistlock:
+  enabled: false
+
+kyverno:
+  replicaCount: 1

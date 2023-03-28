@@ -1,0 +1,19 @@
+---
+istio:
+  enabled: true
+  ingressGateways:
+    public-ingressgateway:
+      type: "LoadBalancer"
+    passthrough-ingressgateway:
+      type: "LoadBalancer"
+  gateways:
+    public:
+      ingressGateway: "public-ingressgateway"
+      hosts:
+        - "*.bigbang.dev"
+    passthrough:
+      ingressGateway: "passthrough-ingressgateway"
+      hosts:
+        - "*.bigbang.dev"
+      tls:
+        mode: "PASSTHROUGH"
