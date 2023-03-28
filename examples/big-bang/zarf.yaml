@@ -25,7 +25,9 @@ components:
           - config/kyverno.yaml
           # Use PLG instead of EFK
           - config/loki.yaml
+          - config/istio.yaml
           - config/keycloak.yaml
+          - config/tweaks.yaml
           # Values are merged in order, so this would override the above and disable everything if uncommented
           # - config/disable-all.yaml
   - name: gitea-virtual-service
