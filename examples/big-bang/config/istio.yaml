@@ -6,14 +6,26 @@ istio:
       type: "LoadBalancer"
     passthrough-ingressgateway:
       type: "LoadBalancer"
+      kubernetesResourceSpec:
+        service:
+          ports:
+            - port: 15022
+              name: status-port
+            - port: 81
+              targetPort: 8080
+              name: http2
+            - port: 444
+              targetPort: 8443
+              name: https
+
   gateways:
     public:
       ingressGateway: "public-ingressgateway"
       hosts:
-        - "*.bigbang.dev"
+        - "*.{{ .Values.domain }}"
     passthrough:
       ingressGateway: "passthrough-ingressgateway"
       hosts:
-        - "*.bigbang.dev"
+        - "*.{{ .Values.domain }}"
       tls:
         mode: "PASSTHROUGH"
