@@ -11,21 +11,24 @@ istio:
           ports:
             - port: 15022
               name: status-port
+              protocol: TCP
             - port: 81
               targetPort: 8080
               name: http2
+              protocol: TCP
             - port: 444
               targetPort: 8443
               name: https
+              protocol: TCP
 
   gateways:
     public:
       ingressGateway: "public-ingressgateway"
       hosts:
-        - "*.{{ .Values.domain }}"
+        - "*.bigbang.dev"
     passthrough:
       ingressGateway: "passthrough-ingressgateway"
       hosts:
-        - "*.{{ .Values.domain }}"
+        - "*.bigbang.dev"
       tls:
         mode: "PASSTHROUGH"
