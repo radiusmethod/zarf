@@ -22,12 +22,12 @@ components:
           # Istio configs
           - config/ingress.yaml
           # Use Kyverno instead of Gatekeeper
-          - config/kyverno.yaml
+          #- config/kyverno.yaml
           # Use PLG instead of EFK
-          - config/loki.yaml
+          #- config/loki.yaml
           - config/istio.yaml
           - config/keycloak.yaml
-          - config/tweaks.yaml
+          - config/disable-all-but-istio.yaml
           # Values are merged in order, so this would override the above and disable everything if uncommented
           # - config/disable-all.yaml
   - name: gitea-virtual-service
