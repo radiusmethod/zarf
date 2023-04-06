@@ -2,7 +2,7 @@ kind: ZarfPackageConfig
 metadata:
   name: big-bang-example
   description: "Deploy Big Bang Core"
-  version: 1.56.0
+  version: 1.57.0
   url: https://p1.dso.mil/products/big-bang
   # Big Bang / Iron Bank are only amd64
   architecture: amd64
@@ -16,10 +16,10 @@ components:
   - name: bigbang
     required: true
     images:
-      - registry1.dso.mil/ironbank/big-bang/p1-keycloak-plugin:3.1.0
+      - registry1.dso.mil/ironbank/big-bang/p1-keycloak-plugin:3.2.0
     extensions:
       bigbang:
-        version: 1.56.0
+        version: 1.57.0
         valuesFiles:
           # Istio configs
           - config/ingress.yaml
