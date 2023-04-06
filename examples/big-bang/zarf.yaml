@@ -17,8 +17,6 @@ components:
     required: true
     images:
       - registry1.dso.mil/ironbank/big-bang/p1-keycloak-plugin:3.2.0
-      # This is a manual fix for a bug with image mismatch in Big Bang v1.57.0
-      - registry1.dso.mil/ironbank/big-bang/argocd:v2.5.10
     extensions:
       bigbang:
         version: 1.57.0
