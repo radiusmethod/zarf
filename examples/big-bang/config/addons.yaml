@@ -79,11 +79,6 @@ addons:
 
   argocd:
     enabled: true
-
-    # Overriding to fix BB version mismatch in 1.57.0
-    global:
-      image:
-        tag: v2.6.6
   #    configs:
   #      repositories:
   #        private-repo:
