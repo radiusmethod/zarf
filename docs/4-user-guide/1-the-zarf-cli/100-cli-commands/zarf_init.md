@@ -44,8 +44,11 @@ zarf init --git-push-password={PASSWORD} --git-push-username={USERNAME} --git-ur
 ## Options
 
 ```
+      --artifact-push-token string      API Token for the push-user to access the artifact registry
+      --artifact-push-username string   Username to access to the artifact registry Zarf is configured to use. User must be able to upload package artifacts.
+      --artifact-url string             External artifact registry url to use for this Zarf cluster
       --components string               Specify which optional components to install.  E.g. --components=git-server,logging
-      --confirm                         Confirm the install without prompting
+      --confirm                         Confirms package deployment without prompting. ONLY use with packages you trust. Skips prompts to review SBOM, configure variables, select optional components and review potential breaking changes.
       --git-pull-password string        Password for the pull-only user to access the git server
       --git-pull-username string        Username for pull-only access to the git server
       --git-push-password string        Password for the push-user to access the git server

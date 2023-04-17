@@ -120,7 +120,8 @@ zarf init --git-push-password={PASSWORD} --git-push-username={USERNAME} --git-ur
 	CmdInitErrFlags             = "Invalid command flags were provided."
 	CmdInitErrDownload          = "failed to download the init package: %s"
 	CmdInitErrValidateGit       = "the 'git-push-username' and 'git-push-password' flags must be provided if the 'git-url' flag is provided"
-	CmdInitErrValidateRegistry  = "the 'registry-push-username' and 'registry-push-password' flags must be provided if the 'registry-url' flag is provided "
+	CmdInitErrValidateRegistry  = "the 'registry-push-username' and 'registry-push-password' flags must be provided if the 'registry-url' flag is provided"
+	CmdInitErrValidateArtifact  = "the 'artifact-push-username' and 'artifact-push-token' flags must be provided if the 'artifact-url' flag is provided"
 	CmdInitErrUnableCreateCache = "Unable to create the cache directory: %s"
 
 	CmdInitDownloadAsk       = "It seems the init package could not be found locally, but can be downloaded from %s"
@@ -131,7 +132,7 @@ zarf init --git-push-password={PASSWORD} --git-push-username={USERNAME} --git-ur
 
 	CmdInitFlagSet = "Specify deployment variables to set on the command line (KEY=value)"
 
-	CmdInitFlagConfirm      = "Confirm the install without prompting"
+	CmdInitFlagConfirm      = "Confirms package deployment without prompting. ONLY use with packages you trust. Skips prompts to review SBOM, configure variables, select optional components and review potential breaking changes."
 	CmdInitFlagComponents   = "Specify which optional components to install.  E.g. --components=git-server,logging"
 	CmdInitFlagStorageClass = "Specify the storage class to use for the registry.  E.g. --storage-class=standard"
 
@@ -148,6 +149,10 @@ zarf init --git-push-password={PASSWORD} --git-push-username={USERNAME} --git-ur
 	CmdInitFlagRegPullUser = "Username for pull-only access to the registry"
 	CmdInitFlagRegPullPass = "Password for the pull-only user to access the registry"
 	CmdInitFlagRegSecret   = "Registry secret value"
+
+	CmdInitFlagArtifactURL       = "External artifact registry url to use for this Zarf cluster"
+	CmdInitFlagArtifactPushUser  = "Username to access to the artifact registry Zarf is configured to use. User must be able to upload package artifacts."
+	CmdInitFlagArtifactPushToken = "API Token for the push-user to access the artifact registry"
 
 	// zarf internal
 	CmdInternalShort = "Internal tools used by zarf"
@@ -210,7 +215,7 @@ zarf init --git-push-password={PASSWORD} --git-push-username={USERNAME} --git-ur
 	CmdPackageCreateFlagSigningKey         = "Path to private key file for signing packages"
 	CmdPackageCreateFlagSigningKeyPassword = "Password to the private key file used for signing packages"
 
-	CmdPackageDeployFlagConfirm    = "Confirm package deployment without prompting"
+	CmdPackageDeployFlagConfirm    = "Confirms package deployment without prompting. ONLY use with packages you trust. Skips prompts to review SBOM, configure variables, select optional components and review potential breaking changes."
 	CmdPackageDeployFlagSet        = "Specify deployment variables to set on the command line (KEY=value)"
 	CmdPackageDeployFlagComponents = "Comma-separated list of components to install.  Adding this flag will skip the init prompts for which components to install"
 	CmdPackageDeployFlagShasum     = "Shasum of the package to deploy. Required if deploying a remote package and \"--insecure\" is not provided"
@@ -276,7 +281,7 @@ zarf init --git-push-password={PASSWORD} --git-push-username={USERNAME} --git-ur
 	CmdToolsClearCacheShort         = "Clears the configured git and image cache directory."
 	CmdToolsClearCacheErr           = "Unable to clear the cache directory %s"
 	CmdToolsClearCacheSuccess       = "Successfully cleared the cache from %s"
-	CmdToolsClearCacheFlagCachePath = "Specify the location of the Zarf  artifact cache (images and git repositories)"
+	CmdToolsClearCacheFlagCachePath = "Specify the location of the Zarf artifact cache (images and git repositories)"
 
 	CmdToolsGenPkiShort       = "Generates a Certificate Authority and PKI chain of trust for the given host"
 	CmdToolsGenPkiSuccess     = "Successfully created a chain of trust for %s"
@@ -331,6 +336,7 @@ const (
 	AgentErrNilReq                 = "malformed admission review: request is nil"
 	AgentErrShutdown               = "unable to properly shutdown the web server"
 	AgentErrStart                  = "Failed to start the web server"
+	AgentErrUnableTransform        = "unable to transform the provided request; see zarf http proxy logs for more details"
 )
 
 // src/internal/packager/validate.

@@ -37,7 +37,7 @@ type ZarfPublishOptions struct {
 	SigningKeyPath     string             `json:"signingKeyPath" jsonschema:"description=Location where the private key component of a cosign key-pair can be found"`
 }
 
-// ZarfPublishOptions tracks the user-defined preferences during a package publish.
+// ZarfPullOptions tracks the user-defined preferences during a package pull.
 type ZarfPullOptions struct {
 	Reference     registry.Reference `jsonschema:"description=Remote registry reference"`
 	CopyOptions   oras.CopyOptions   `jsonschema:"description=Options for the copy operation"`
@@ -51,10 +51,10 @@ type ZarfInitOptions struct {
 	// Zarf init is installing the k3s component
 	ApplianceMode bool `json:"applianceMode" jsonschema:"description=Indicates if Zarf was initialized while deploying its own k8s cluster"`
 
-	// Using a remote git server
-	GitServer GitServerInfo `json:"gitServer" jsonschema:"description=Information about the repository Zarf is going to be using"`
-
-	RegistryInfo RegistryInfo `json:"registryInfo" jsonschema:"description=Information about the registry Zarf is going to be using"`
+	// Using alternative services
+	GitServer      GitServerInfo      `json:"gitServer" jsonschema:"description=Information about the repository Zarf is going to be using"`
+	RegistryInfo   RegistryInfo       `json:"registryInfo" jsonschema:"description=Information about the container registry Zarf is going to be using"`
+	ArtifactServer ArtifactServerInfo `json:"artifactServer" jsonschema:"description=Information about the artifact registry Zarf is going to be using"`
 
 	StorageClass string `json:"storageClass" jsonschema:"description=StorageClass of the k8s cluster Zarf is initializing"`
 }
@@ -78,6 +78,7 @@ type ZarfPartialPackageData struct {
 	Count     int    `json:"count" jsonschema:"description=The number of parts the package is split into"`
 }
 
+// ZarfSetVariable tracks internal variables that have been set during this run of Zarf
 type ZarfSetVariable struct {
 	Name       string `json:"name" jsonschema:"description=The name to be used for the variable,pattern=^[A-Z0-9_]+$"`
 	Sensitive  bool   `json:"sensitive,omitempty" jsonschema:"description=Whether to mark this variable as sensitive to not print it in the Zarf log"`
@@ -116,7 +117,7 @@ type ComponentPaths struct {
 type TempPaths struct {
 	Base         string
 	InjectBinary string
-	SeedImage    string
+	SeedImages   string
 	Images       string
 	Components   string
 	SbomTar      string
