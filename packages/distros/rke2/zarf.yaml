@@ -1,0 +1,32 @@
+kind: ZarfInitConfig
+metadata:
+  name: "distro-rke2"
+  description: "Used to establish a new Zarf cluster"
+
+components:
+  # AMD-64 version of the RKE2 stack
+  - name: rke2
+    import:
+      path: common
+      name: rke2
+    only:
+      cluster:
+        architecture: amd64
+    files:
+      # Include the actual RKE2 binary
+      - source: https://github.com/rancher/rke2/releases/download/v1.27.1%2Brke2r1/rke2.linux-amd64
+        shasum: caeddb19416e87db071be3a7f5497ccfa4f546cfda319f0cb47504e517290370
+        target: /usr/local/bin//rke2
+        executable: true
+        # RKE2 magic provides these tools when symlinking
+        symlinks:
+          - /usr/sbin/kubectl
+          - /usr/sbin/ctr
+          - /usr/sbin/crictl
+      # Transfer the RKE2 images for containerd to pick them up
+      - source: https://github.com/rancher/rke2/releases/download/v1.27.1%2Brke2r1/rke2-images.linux-amd64.tar.zst
+        shasum: cd2813d4cb16a01215d39dd0c61fa75ad7bb4e700f16524e9661c3d4e8ecbdbd
+        target: /var/lib/rancher/rke2/agent/images/rke2.tar.zst
+      - source: https://get.rke2.io
+        target: /opt/install.sh
+        executable: true

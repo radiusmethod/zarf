@@ -1,0 +1,38 @@
+kind: ZarfInitConfig
+metadata:
+  name: "distro-rke2"
+
+variables:
+#  - name: K3S_ARGS
+#    description: "Arguments to pass to K3s"
+#    default: "--disable traefik"
+
+components:
+  - name: rke2
+    only:
+      localOS: linux
+    description: >
+      *** REQUIRES ROOT (not sudo) ***
+      Install RKE2
+    actions:
+      onDeploy:
+        defaults:
+          maxRetries: 5
+        before:
+          - cmd: ./zarf internal is-valid-hostname
+            maxRetries: 0
+          - cmd: INSTALL_RKE2_ARTIFACT_PATH=/root/rke2-artifacts /opt/install.sh
+          # If running RHEL variant, disable firewalld
+          # https://rancher.com/docs/k3s/latest/en/advanced/#additional-preparation-for-red-hat-centos-enterprise-linux
+          # NOTE: The empty echo prevents infinite retry loops on non-RHEL systems where the exit code would be an error
+          - cmd: "[ -e /etc/redhat-release ] && systemctl disable firewalld --now || echo ''"
+        after:
+          # Configure K3s systemd service
+          - cmd: systemctl daemon-reload
+          - cmd: systemctl enable rke2-server.service
+          - cmd: systemctl start rke2-server.service
+#    files:
+#      # K3s removal script
+#      - source: zarf-clean-k3s.sh
+#        target: /opt/zarf/zarf-clean-k3s.sh
+#        executable: true
