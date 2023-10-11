@@ -168,7 +168,7 @@ func Run(YOLO bool, tmpPaths *layout.ComponentPaths, c types.ZarfComponent) (typ
 			action.Wait.Cluster = &types.ZarfComponentActionWaitCluster{
 				Kind: "APIService",
 				// https://github.com/kubernetes-sigs/metrics-server#compatibility-matrix
-				Identifier: "v1beta1.metrics.k8s.io",
+				Identifier: "metrics.k8s.io",
 			}
 		}
 
